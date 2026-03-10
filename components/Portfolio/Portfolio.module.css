@@ -1,0 +1,103 @@
+.portfolio {
+    padding: 100px 20px;
+    background: #fff;
+    text-align: center;
+}
+
+.container {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.header {
+    max-width: 927px;
+    /* From property screenshot */
+    min-height: 116px;
+    margin: 0 auto 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #111;
+    letter-spacing: -2px;
+}
+
+.accentText {
+    background: linear-gradient(90deg, #FFAF68 0%, #B2215A 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 60px 40px;
+    justify-items: center;
+}
+
+.card {
+    text-align: left;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.imgWrapper {
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background: #f8f8f8;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.imgWrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover .imgWrapper img {
+    transform: scale(1.05);
+}
+
+.projTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111;
+    height: 29px;
+    /* Exact height from properties screenshot */
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+@media (max-width: 1024px) {
+    .grid {
+        gap: 40px 20px;
+    }
+
+    .title {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        max-width: 600px;
+        margin-bottom: 20px;
+    }
+}

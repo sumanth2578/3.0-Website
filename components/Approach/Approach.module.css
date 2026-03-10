@@ -1,0 +1,394 @@
+/* ================================================================
+   APPROACH  —  GSAP-pinned horizontal card carousel
+   GSAP ScrollTrigger handles all pinning + scrub.
+   The section is 100vh; GSAP creates its own spacer element.
+================================================================ */
+
+/* ── Full-screen pinned shell ───────────────────────────────── */
+.section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: #fff;
+  overflow: hidden;
+  padding: 100px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bgLayer {
+  position: absolute;
+  inset: 0;
+  background: url('/approach-bg.png') no-repeat center center;
+  background-size: cover;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.3;
+  /* Dimmed background */
+}
+
+.fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  /* Fix: Must be 100% for scaleX to work */
+  background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* ── Section header ─────────────────────────────────────────── */
+.header {
+  text-align: left;
+  padding: 0 80px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+  margin-bottom: 60px;
+}
+
+.eyebrow {
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #FFAF68 0%, #B2215A 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0px;
+}
+
+.heading {
+  display: none;
+}
+
+.em {
+  font-style: italic;
+  color: var(--accent-primary);
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+}
+
+/* ── Card stage ─────────────────────────────────────────────── */
+.stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  /* allow cards to overflow visually */
+  overflow: visible;
+  position: relative;
+  z-index: 5;
+}
+
+/* ── Flex track (GSAP translates this) ─────────────────────── */
+.track {
+  display: flex;
+  align-items: center;
+  position: relative;
+  /* needed for absolute connector  */
+  will-change: transform;
+}
+
+/* ── Connector line (inside track, moves with it) ───────────── */
+/*
+  left  = 25vw  → horizontal centre of card-1 (at 50vw slot)
+  width = 250vw → spans all 5 gaps (6 cards × 50vw − first half)
+  top   = 50%   → vertical mid-point of the card area
+*/
+/*
+  left  = 25vw  → horizontal centre of card-1 (at 50vw slot)
+  width = 250vw → spans all 5 gaps (6 cards × 50vw − first half)
+*/
+.connectorWrap {
+  position: absolute;
+  left: 25vw;
+  width: 250vw;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 4px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.connectorBg {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  /* Removed thin line */
+  border-radius: 100px;
+}
+
+.connectorFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  /* Gradient from properties: #FFAF68 to #B2215A */
+  background: linear-gradient(90deg, #FFAF68 0%, #B2215A 100%);
+  border-radius: 100px;
+  box-shadow: 0 2px 8px rgba(178, 33, 90, 0.2);
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
+
+/*
+  Each cardWrapper = 50vw total (2 cards visible at once)
+  card 350px  +  left margin  +  right margin  =  50vw
+  → each margin = (50vw - 350px) / 2
+*/
+.cardWrapper {
+  flex-shrink: 0;
+  width: 350px;
+  margin: 0 calc((50vw - 350px) / 2);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Card ───────────────────────────────────────────────────── */
+.card {
+  width: 350px;
+  min-height: 60px;
+  /* Wider and Shorter */
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  background-clip: padding-box;
+  position: relative;
+  overflow: hidden;
+  transform-origin: center center;
+  transition: box-shadow 0.35s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+/* Gradient border via pseudo-element (border-image doesn't work with border-radius) */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  /* Slightly thinner but still bold */
+  border-radius: 20px;
+  padding: 3px;
+  background: linear-gradient(135deg, #FFAF68 0%, #B2215A 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.cardTop {
+  padding: 24px;
+  /* Scaled down */
+  position: relative;
+  z-index: 1;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #111;
+  border: 1.5px solid #111;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.cardTitle {
+  font-size: 16px;
+  /* Scaled down */
+  font-weight: 700;
+  color: #111;
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+}
+
+.cardContent {
+  padding: 0 24px 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardDesc {
+  font-size: 13px;
+  /* Scaled down */
+  color: #555;
+  line-height: 1.5;
+  font-family: var(--font-secondary);
+  opacity: 0.9;
+  will-change: transform, opacity;
+  margin-bottom: 16px;
+}
+
+/* Icon illustration area */
+.iconWrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  padding: 4px 16px 16px;
+  will-change: transform, opacity;
+}
+
+.iconWrap svg {
+  width: 90px;
+  /* Scaled down */
+  height: auto;
+  filter: drop-shadow(0 4px 12px rgba(255, 92, 53, 0.2));
+}
+
+/* ── Progress indicator ─────────────────────────────────────── */
+.progressWrap {
+  display: none;
+  /* Removed progress bar indicator */
+  flex-shrink: 0;
+  padding: 0 80px;
+  position: relative;
+  z-index: 10;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.rail {
+  position: relative;
+  height: 2px;
+  background: transparent;
+  /* Removed thin line */
+  border-radius: 2px;
+  margin-bottom: 28px;
+}
+
+/* GSAP animates width from 0% → 100% */
+.fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  /* Must be 100% for scaleX to work */
+  background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.dotWrap {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* GSAP sets background-color + scale directly */
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #d4d4d4;
+  border: 2px solid #f7f5f2;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+  transform-origin: center;
+}
+
+.dotLabel {
+  position: absolute;
+  top: 14px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #bbb;
+  white-space: nowrap;
+}
+
+/* ================================================================
+   RESPONSIVE  —  disable pin, show swipeable row
+================================================================ */
+@media (max-width: 768px) {
+  .section {
+    height: auto;
+    overflow: visible;
+    padding: 80px 0 64px;
+  }
+
+  .grid {
+    animation: none;
+  }
+
+  .stage {
+    overflow-x: auto;
+    flex: none;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 16px 0;
+  }
+
+  .stage::-webkit-scrollbar {
+    display: none;
+  }
+
+  .track {
+    transform: none !important;
+    padding: 0 20px;
+  }
+
+  .cardWrapper {
+    width: min(320px, 80vw);
+    margin: 0 10px;
+  }
+
+  .card {
+    width: 100%;
+    height: auto;
+    min-height: 380px;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  .heading {
+    font-size: 36px;
+  }
+
+  .progressWrap {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .cardWrapper {
+    width: 350px;
+    margin: 0 calc((50vw - 350px) / 2);
+  }
+
+  .card {
+    width: 350px;
+  }
+
+  .heading {
+    font-size: 40px;
+  }
+}

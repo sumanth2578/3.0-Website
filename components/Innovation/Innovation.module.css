@@ -1,0 +1,217 @@
+.innovation {
+    padding: 80px 20px;
+    background: #fff;
+}
+
+.mainContainer {
+    max-width: 1334px;
+    height: 605px;
+    margin: 0 auto;
+    background: url('/innovation-bg.png') no-repeat center center;
+    background-size: cover;
+    border-radius: 22px;
+    padding: 80px 60px;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.title {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #fff;
+    letter-spacing: -2px;
+    margin: 0;
+}
+
+.gradientText {
+    background: linear-gradient(90deg, #ff8c6b, #d94e63);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.card {
+    padding: 40px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 240px;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.cardIcon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: auto;
+}
+
+.cardIcon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.serviceTitle {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Card Types */
+.gradient {
+    background: #fff;
+    color: #ff5c35;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: background 0.4s ease, color 0.4s ease, transform 0.3s ease, border-color 0.4s ease;
+}
+
+.gradient:hover,
+.white-orange:hover,
+.white-blue:hover {
+    background: linear-gradient(135deg, #ff9d6c 0%, #ff5c35 50%, #b2215a 100%);
+    color: #fff;
+    border-color: transparent;
+}
+
+.white-orange {
+    background: #fff;
+    color: #ff5c35;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: background 0.4s ease, color 0.4s ease, transform 0.3s ease, border-color 0.4s ease;
+}
+
+.white-blue {
+    background: #fff;
+    color: #00cae5;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: background 0.4s ease, color 0.4s ease, transform 0.3s ease, border-color 0.4s ease;
+}
+
+/* Banner */
+.banner {
+    background: #111;
+    color: white;
+    padding: 40px 60px;
+    border-radius: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bannerText h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.bannerText p {
+    font-size: 18px;
+    opacity: 0.8;
+    color: #fff;    
+}
+
+.bannerActions {
+    display: flex;
+    gap: 16px;
+}
+
+.btnPillWhite {
+    background: #fff;
+    color: #111;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+}
+
+.iconCircle {
+    width: 32px;
+    height: 32px;
+    background: #111;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnPillOutline {
+    background: transparent;
+    color: #fff;
+    border: 2px solid #333;
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+}
+
+.iconCircleOutline {
+    width: 32px;
+    height: 32px;
+    background: #333;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 1024px) {
+    .mainContainer {
+        padding: 60px 40px;
+    }
+
+    .title {
+        font-size: 42px;
+    }
+
+    .banner {
+        flex-direction: column;
+        text-align: center;
+        gap: 32px;
+        padding: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .title {
+        font-size: 32px;
+    }
+
+    .mainContainer {
+        padding: 40px 20px;
+        border-radius: 30px;
+    }
+}
