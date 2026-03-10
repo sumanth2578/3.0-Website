@@ -3,26 +3,26 @@ import styles from './Portfolio.module.css';
 const projects = [
     {
         title: 'Blue Cross Hyderabad',
-        image: '/blue-cross-mockup.png',
+        image: '/images/portfolio/blue-cross-mockup.png',
         width: 598,
         height: 409
     },
     {
         title: 'Starlink',
-        image: '/Starlink.png',
+        image: '/images/portfolio/Starlink.png',
         width: 598,
         height: 409
     },
     {
         title: 'Bhoomibox',
-        image: '/bb.png',
+        image: '/images/portfolio/bb.png',
         width: 601,
         height: 360
 
     },
     {
         title: 'NaviPrep',
-        image: '/Naviprep.png',
+        image: '/images/portfolio/Naviprep.png',
         width: 607,
         height: 354
     }

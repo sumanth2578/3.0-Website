@@ -1,7 +1,7 @@
 .bottomHero {
     padding: 160px 0;
     position: relative;
-    background: url('/hero-bg-new.png') no-repeat center bottom;
+    background: url('/images/backgrounds/hero-bg-new.png') no-repeat center bottom;
     background-size: cover;
     text-align: center;
     overflow: hidden;

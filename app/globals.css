@@ -133,7 +133,7 @@ ul {
   transform: translateX(-50%);
   width: 1590px;
   height: 714px;
-  background: url('/template-bg.png') no-repeat center top;
+  background: url('/images/backgrounds/template-bg.png') no-repeat center top;
   background-size: 100% 100%;
   z-index: 0;
   pointer-events: none;

@@ -230,6 +230,9 @@ export default function Approach() {
     const N = steps.length;
     const STEPS = N - 1;
 
+    // Refresh ScrollTrigger after page transition animation completes
+    const refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 800);
+
     const ctx = gsap.context(() => {
       /* ── Initial states ─────────────────────────────────────── */
       cardRefs.current.forEach((card, i) => {
@@ -311,8 +314,11 @@ export default function Approach() {
       // Background is static — no parallax movement
     }, sectionRef);
 
-    return () => ctx.revert();
-  }, [mounted, steps]);
+    return () => {
+      clearTimeout(refreshTimer);
+      ctx.revert();
+    };
+  }, [mounted]);
 
   return (
     <section

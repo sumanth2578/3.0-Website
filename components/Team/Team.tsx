@@ -4,19 +4,19 @@ const members = [
     {
         name: 'Nithin Varma M',
         role: 'Co-Founder',
-        image: '/team-307.png',
+        image: '/images/team/team-307.png',
         shape: 'organic-1'
     },
     {
         name: 'Sai kiran G L',
         role: 'Co-Founder',
-        image: '/team-308.png',
+        image: '/images/team/team-308.png',
         shape: 'arch'
     },
     {
         name: 'Venkatesh A',
         role: 'Business Head',
-        image: '/team-309.png',
+        image: '/images/team/team-309.png',
         shape: 'circle'
     },
     {

@@ -20,7 +20,7 @@ const Header = () => {
             <div className={styles.container}>
                 <div className={styles.logo}>
                     <Link href="/">
-                        <img src="/bruh/logo.png" alt="3.0 Labs" className={styles.logoImg} />
+                        <img src="/images/logos/logo.png" alt="3.0 Labs" className={styles.logoImg} />
                     </Link>
                 </div>
 
@@ -29,7 +29,7 @@ const Header = () => {
                     <Link href="#services" className={styles.navLink}>Services</Link>
                     <Link href="#work" className={styles.navLink}>Portfolio</Link>
                     <Link href="#team" className={styles.navLink}>Teams</Link>
-                    <Link href="#contact" className={styles.navLink}>Contact us</Link>
+                    <Link href="/contact-us" className={styles.navLink}>Contact us</Link>
                 </div>
             </div>
         </header>

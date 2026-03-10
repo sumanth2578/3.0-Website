@@ -5,9 +5,9 @@
 
 .mainContainer {
     max-width: 1334px;
-    height: 605px;
+    min-height: 605px;
     margin: 0 auto;
-    background: url('/innovation-bg.png') no-repeat center center;
+    background: url('/images/backgrounds/innovation-bg.png') no-repeat center center;
     background-size: cover;
     border-radius: 22px;
     padding: 80px 60px;

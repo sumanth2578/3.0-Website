@@ -8,7 +8,7 @@ const Footer = () => {
                 <div className={styles.footerContainer}>
                     {/* Row 1: Logo & Nav Links */}
                     <div className={styles.footerTopRow}>
-                        <img src="/image 74.png" alt="3.0 Labs" className={styles.logo} />
+                        <img src="/images/logos/image 74.png" alt="3.0 Labs" className={styles.logo} />
                         <div className={styles.navLinks}>
                             <Link href="#about">About us</Link>
                             <Link href="#contact">Contact us</Link>
